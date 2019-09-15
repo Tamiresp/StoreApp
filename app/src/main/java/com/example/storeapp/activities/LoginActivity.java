@@ -33,12 +33,12 @@ public class LoginActivity extends AppCompatActivity {
 
         email = (TextInputEditText) findViewById(R.id.uyeEmail);
         password = (TextInputEditText) findViewById(R.id.uyeParola);
-        registerButton = (Button) findViewById(R.id.yeniUyeButton);
-        loginButton = (Button) findViewById(R.id.uyeGirisButton);
+        registerButton = (Button) findViewById(R.id.uyeGirisButton);
+        loginButton = (Button) findViewById(R.id.yeniUyeButton);
 
-        FirebaseApp.initializeApp(this);
-
-        firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseApp.initializeApp(this);
+//
+//        firebaseAuth = FirebaseAuth.getInstance();
 
 //        ActionCodeSettings actionCodeSettings =
 //                ActionCodeSettings.newBuilder()
@@ -54,50 +54,54 @@ public class LoginActivity extends AppCompatActivity {
 //                                "12"    /* minimumVersion */)
 //                        .build();
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String emailT = email.getText().toString();
-                String passwordT = password.getText().toString();
-
-                if(TextUtils.isEmpty(emailT)){
-                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(passwordT)){
-                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
-                }
-
-                if(password.length()<6){
-                    Toast.makeText(getApplicationContext(),"Password must be at least 6 characters",Toast.LENGTH_SHORT).show();
-                }
-
-                firebaseAuth.createUserWithEmailAndPassword(emailT, passwordT)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                                    finish();
-                                }
-                                else{
-                                    Toast.makeText(getApplicationContext(),"E-mail or password is wrong",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        });
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String emailT = email.getText().toString();
+//                String passwordT = password.getText().toString();
+//
+//                if(TextUtils.isEmpty(emailT)){
+//                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(passwordT)){
+//                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+//                }
+//
+//                if(password.length()<6){
+//                    Toast.makeText(getApplicationContext(),"Password must be at least 6 characters",Toast.LENGTH_SHORT).show();
+//                }
+//
+//                firebaseAuth.createUserWithEmailAndPassword(emailT, passwordT)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if(task.isSuccessful()){
+//                                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+//                                    finish();
+//                                }
+//                                else{
+//                                    Toast.makeText(getApplicationContext(),"E-mail or password is wrong",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//            }
+//        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                if (email != null){
+                    Intent i = new Intent(LoginActivity.this, Main2Activity.class);
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 
-        if(firebaseAuth.getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
+//        if(firebaseAuth.getCurrentUser()!=null){
+//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//        }
 
     }
 }
